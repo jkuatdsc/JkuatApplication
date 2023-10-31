@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+  backend:
+    build:
+      context: ./Backend
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    networks:
+      - mynetwork
+    links:
+      - db
+
+  frontend:
+    build:
+      context: ./Client
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    networks:
+      - mynetwork
+    links:
+      - backend
+
+  db:
+    image: postgres:alpine
+    restart: always
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5433:5433"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    external: false
