@@ -6,20 +6,20 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /app/backend
 
 # Copy the requirements file into the container at /app
-COPY requirements.txt /app/
+COPY requirements.txt /app/backend
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the current directory contents into the container at /app
-COPY . /app/
+COPY . /app/backend
 
 # Collect static files
-#RUN python manage.py collectstatic --noinput
+# RUN python manage.py collectstatic --noinput
 
 # Run migrations
 RUN python manage.py migrate
