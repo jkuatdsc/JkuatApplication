@@ -42,3 +42,7 @@ To get started with the JKUAT Mobile App, follow these steps:
    ```bash
    git clone https://github.com/jkuatdsc/JkuatApplication.git
    ```
+   2.Run the following commands to build the images and run the app
+   ```
+    make build && make up
+   ```
