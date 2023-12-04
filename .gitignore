@@ -24,4 +24,7 @@ dist-ssr
 *.sw?
 
 Backend/pgdata/*
-Backend/__pycache__/
+Backend/__pycache__/*
+env/
+Backend/*pyc
+

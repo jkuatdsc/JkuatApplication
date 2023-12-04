@@ -1,48 +1,21 @@
-version: "3"
+version: "3.9"
 
 services:
-  backend:
+  web:
     build:
       context: ./Backend
-
-    ports:
-      - "8000:8000"
     volumes:
-      - ./Backend:/app/backend
+      - .:/code
+    ports:
+      - 8000:8000
     depends_on:
       - db
-    links:
-      - db:db
-    networks:
-      - mynetwork
-
-  client:
-    build:
-      context: ./Client
-
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./Client:/app/client
-    networks:
-      - mynetwork
-    links:
-      - backend
-
   db:
-    image: postgres:alpine
-    restart: always
+    image: postgres:14
     volumes:
-      - ./pgdata:/var/lib/postgresql/data/
+      - ./postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
-    ports:
-      - "5432:5432"
-    networks:
-      - mynetwork
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
 
-networks:
-  mynetwork:
-    driver: bridge
+volumes:
+  postgres_data:
